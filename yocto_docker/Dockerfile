@@ -17,10 +17,12 @@ USER yocto
 
 WORKDIR /home/yocto
 
-RUN cd /home/yocto \
-    && mkdir oe \
-    && cd oe \
-    && git clone --depth=1 https://github.com/kinsamanka/meta-milkv
+RUN cd /home/yocto
+
+# RUN cd /home/yocto \
+#     && mkdir oe \
+#     && cd oe \
+#     && git clone --depth=1 https://github.com/kinsamanka/meta-milkv
 
 # ENV MACHINE=milkv-duo256m
 # RUN cd oe \
