@@ -34,28 +34,10 @@ https://milkv.io/docs/duo/io-board/usb-ethernet-iob
 
 * ![](https://milkv.io/duo/duo-pinout.webp)
 
-**Getting started**
-
-* [Duo Docs](https://milkv.io/docs/duo/overview)
-
-* [Boot the Duo](https://milkv.io/docs/duo/getting-started/boot)
-
-* [Setup](https://milkv.io/docs/duo/getting-started/setup)
-  * USB to TTL serial cable
-
-    | Milk V | RS232 | Comment |
-    | - | - | - |
-    | GND | GND | green |
-    | GPIO13 (RX) | TX | blue |
-    | GPIO12 (TX) | RX | mangenta |
-
-    `minicom -b 115200 -8 -D /dev/ttyUSB0`
 
 # Use Dockerfile
 
 ## Build
-
-See: docker_compile.sh
 
 ```bash
 mkdir oe
@@ -63,7 +45,11 @@ mkdir oe
   cd oe
   git clone --depth=1 https://github.com/kinsamanka/meta-milkv
 )
+```
 
+`run_docker_compile.sh`
+
+<!-- ```bash
 cd oe/meta-milkv
 
 vi kas-project.yml
@@ -79,12 +65,13 @@ vi recipes-bsp/milkv-duo-fsbl/milkv-duo-fsbl.bbappend
 - file://0002-compile-fixes.patch;patchdir=.. \
 + 
 +
-```
+``` -->
 
 
 ```bash
+ENV MACHINE=milkv-duo
 cd oe
-./yocto_docker/oe/run_kas_for_all.sh
+time kas build meta-milkv/kas-project.yml
 ```
 
 | machine |  github, 16-core, 64GB RAM, 128GB | Build on Lenovo T14s, i7 |
