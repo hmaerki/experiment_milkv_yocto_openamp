@@ -69,21 +69,21 @@ vi recipes-bsp/milkv-duo-fsbl/milkv-duo-fsbl.bbappend
 
 
 ```bash
-ENV MACHINE=milkv-duo
+export KAS_MACHINE=milkv-duo
 cd oe
 time kas build meta-milkv/kas-project.yml
 ```
 
 | machine |  github, 16-core, 64GB RAM, 128GB | Build on Lenovo T14s, i7 |
 | - | - | - |
-| milkv_duo | 27min |  |
-| milkv | 3min |  |
-| milkv_duos | 3min |  |
+| export KAS_MACHINE=milkv_duo | 50min |  |
+| export KAS_MACHINE=milkv_duos | 3min |  |
+| export KAS_MACHINE=milkv-duo256m | 3min |  |
 
 ## Flash and run
 
 ```bash
-export KAS_MACHINE=milkv-duo256m
+export KAS_MACHINE=milkv-duo
 export SDCARD=/dev/sda
 sudo umount ${SDCARD}1
 sudo umount ${SDCARD}2
@@ -93,3 +93,18 @@ zcat oe/build/tmp-musl/deploy/images/milkv-duo/core-image-minimal-${KAS_MACHINE}
 
 eMMC: 246MB, 11s
 sdcard: 246MB, 11s
+
+
+==============================
+
+yocto_docker/oe/meta-milkv/kas-project.yml
+```
+-    CORE_IMAGE_EXTRA_INSTALL += " \
+-        chrony \
++    CORE_IMAGE_EXTRA_INSTALL += " \
++        blinky \
++        chrony \
+```
+
+milkv_duo: ok
+milkv_duos: zephyr-blinky, Invalid BOARD
